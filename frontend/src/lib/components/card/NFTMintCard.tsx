@@ -108,26 +108,30 @@ const NFTMintCard = () => {
           htmlFor="dropzone-file"
           className="py-2 w-full flex flex-col items-center justify-center border border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-200"
         >
-          <div className="flex flex-col items-center justify-center py-5">
-            <svg
-              className="w-8 h-8 mb-4 text-gray-500"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 16"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-              />
-            </svg>
-            <p className="mb-2 px-4 text-xl text-gray-500">
-              <span className="font-semibold">Upload Images</span>
-            </p>
-          </div>
+          {fileUrl ? (
+            <img className="max-w-[400px]" src={fileUrl} alt="Preview" />
+          ) : (
+            <div className="flex flex-col items-center justify-center py-5">
+              <svg
+                className="w-8 h-8 mb-4 text-gray-500"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 16"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                />
+              </svg>
+              <p className="mb-2 px-4 text-xl text-gray-500">
+                <span className="font-semibold">Upload Images</span>
+              </p>
+            </div>
+          )}
           <input
             id="dropzone-file"
             type="file"
@@ -155,10 +159,35 @@ const NFTMintCard = () => {
           <button
             className="p-[3px] relative"
             onClick={() => handleMintClick({ name, description })}
+            disabled={isLoading}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
-            <div className="px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
-              Mint NFT
+            <div className="min-h-[40px] px-8 py-2 bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
+              {isLoading ? (
+                <span className="absolute">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"
+                    >
+                      <animateTransform
+                        attributeName="transform"
+                        dur="0.75s"
+                        repeatCount="indefinite"
+                        type="rotate"
+                        values="0 12 12;360 12 12"
+                      ></animateTransform>
+                    </path>
+                  </svg>
+                </span>
+              ) : (
+                <span>Mint NFT</span>
+              )}
             </div>
           </button>
         </div>
